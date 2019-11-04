@@ -98,6 +98,26 @@ include_directories (include)
 
 #-------------------------------------------------------------------------------
 #
+# OpenSSL
+#
+#-------------------------------------------------------------------------------
+
+if (APPLE AND NOT DEFINED ENV{OPENSSL_ROOT_DIR})
+  find_program(HOMEBREW brew)
+  if (NOT HOMEBREW STREQUAL "HOMEBREW-NOTFOUND")
+    execute_process(COMMAND brew --prefix openssl
+      OUTPUT_VARIABLE OPENSSL_ROOT_DIR
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+  endif()
+endif()
+
+find_package(OpenSSL)
+
+include_directories (${OPENSSL_INCLUDE_DIR})
+link_libraries (${OPENSSL_LIBRARIES})
+
+#-------------------------------------------------------------------------------
+#
 # Boost
 #
 #-------------------------------------------------------------------------------
@@ -112,25 +132,33 @@ include_directories (${BOOST_ROOT})
 link_directories(${BOOST_ROOT}/stage/lib)
 
 #-------------------------------------------------------------------------------
+#
+# Static Libraries
+#
+#-------------------------------------------------------------------------------
 
-if ("${VARIANT}" STREQUAL "coverage")
-    if (MSVC)
-    else()
-        set (CMAKE_BUILD_TYPE DEBUG)
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4.2 --coverage")
-        set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
-    endif()
+add_definitions (-DBOOST_ASIO_SEPARATE_COMPILATION=1)
+add_definitions (-DBOOST_BEAST_SEPARATE_COMPILATION=1)
 
-elseif ("${VARIANT}" STREQUAL "ubasan")
-    if (MSVC)
-    else()
-        set (CMAKE_BUILD_TYPE RELWITHDEBINFO)
-        set (CMAKE_CXX_FLAGS
-          "${CMAKE_CXX_FLAGS} -msse4.2 -funsigned-char -fno-omit-frame-pointer -fsanitize=address,undefined -fno-sanitize-recover=address,undefined -fsanitize-blacklist=${PROJECT_SOURCE_DIR}/tools/blacklist.supp")
-        set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined -fno-sanitize-recover=address,undefined")
-    endif()
+add_library (
+    lib-asio STATIC
+    test/lib_asio.cpp
+)
 
-elseif ("${VARIANT}" STREQUAL "debug")
+set_property(TARGET lib-asio PROPERTY FOLDER "static-libs")
+
+add_library (
+    lib-beast STATIC
+    test/lib_beast.cpp
+)
+
+set_property(TARGET lib-beast PROPERTY FOLDER "static-libs")
+
+target_link_libraries(lib-asio lib-beast)
+
+#-------------------------------------------------------------------------------
+
+if ("${VARIANT}" STREQUAL "debug")
     set (CMAKE_BUILD_TYPE DEBUG)
 
 elseif ("${VARIANT}" STREQUAL "release")
@@ -142,6 +170,8 @@ endif()
 #
 # Tests and examples
 #
+
+#GroupSources (test "/")
 
 add_definitions(-DBOOST_TLS_HEADER_ONLY=1)
 

@@ -19,4 +19,6 @@ add_executable (tls-tests
     stream.cpp
 )
 
+target_link_libraries(tls-tests lib-asio lib-beast)
+
 add_test(tls-tests tls-tests)

@@ -37,4 +37,15 @@
 # endif  // auto-linking disabled
 #endif
 
+namespace boost {
+namespace asio {
+namespace ssl {
+} // ssl
+} // asio
+namespace tls {
+namespace net = boost::asio;
+namespace ssl = boost::asio::ssl;
+} // beast
+} // boost
+
 #endif

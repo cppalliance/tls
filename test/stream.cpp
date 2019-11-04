@@ -10,6 +10,8 @@
 // Test that header file is self-contained.
 #include <boost/tls/stream.hpp>
 
+#include <boost/asio/ssl/context.hpp>
+
 #include <boost/beast/_experimental/unit_test/suite.hpp>
 
 namespace boost {
@@ -19,8 +21,15 @@ class stream_test : public beast::unit_test::suite
 {
 public:
     void
+    testContext()
+    {
+        boost::asio::ssl::context ctx(ssl::context::tlsv12_client);
+    }
+
+    void
     run() override
     {
+        testContext();
         pass();
     }
 };
