@@ -4,28 +4,28 @@
 # Distributed under the Boost Software License, Version 1.0. (See accompanying
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-# Official repository: https://github.com/CPPAlliance/secure
+# Official repository: https://github.com/CPPAlliance/tls
 #
 
-project boost/secure
+project boost/tls
     : requirements
-      <link>shared:<define>BOOST_SECURE_DYN_LINK=1
-      <link>static:<define>BOOST_SECURE_STATIC_LINK=1
-      <define>BOOST_SECURE_SOURCE
+      <link>shared:<define>BOOST_TLS_DYN_LINK=1
+      <link>static:<define>BOOST_TLS_STATIC_LINK=1
+      <define>BOOST_TLS_SOURCE
     : usage-requirements
-      <link>shared:<define>BOOST_SECURE_DYN_LINK=1
-      <link>static:<define>BOOST_SECURE_STATIC_LINK=1
+      <link>shared:<define>BOOST_TLS_DYN_LINK=1
+      <link>static:<define>BOOST_TLS_STATIC_LINK=1
     : source-location ../src
     ;
 
-alias secure_sources
+alias tls_sources
    : src.cpp
    ;
 
-explicit secure_sources ;
+explicit tls_sources ;
 
-lib boost_secure
-   : secure_sources
+lib boost_tls
+   : tls_sources
    ;
 
-boost-install boost_secure ;
+boost-install boost_tls ;

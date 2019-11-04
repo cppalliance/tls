@@ -12,7 +12,7 @@ import ../../config/checks/config : requires ;
 
 project
     : requirements
-    <library>/boost/secure//boost_secure
+    <library>/boost/tls//boost_tls
     [ requires
     cxx11_constexpr
     cxx11_decltype

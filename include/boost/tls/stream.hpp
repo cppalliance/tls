@@ -7,25 +7,29 @@
 // Official repository: https://github.com/CPPAlliance/tls
 //
 
-// Test that header file is self-contained.
-#include <boost/tls/stream.hpp>
+#ifndef BOOST_TLS_STREAM_HPP
+#define BOOST_TLS_STREAM_HPP
 
-#include <boost/beast/_experimental/unit_test/suite.hpp>
+#include <boost/tls/detail/config.hpp>
 
 namespace boost {
 namespace tls {
 
-class stream_test : public beast::unit_test::suite
+template<class NextLayer>
+class stream
 {
 public:
-    void
-    run() override
-    {
-        pass();
-    }
 };
 
-BEAST_DEFINE_TESTSUITE(boost,tls,stream);
+BOOST_TLS_DECL
+int
+forty_two() noexcept;
 
 } // tls
 } // boost
+
+#ifdef BOOST_TLS_HEADER_ONLY
+#include <boost/tls/impl/stream.ipp>
+#endif
+
+#endif

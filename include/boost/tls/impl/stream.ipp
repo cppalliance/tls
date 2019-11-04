@@ -4,24 +4,24 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
-// Official repository: https://github.com/CPPAlliance/secure
+// Official repository: https://github.com/CPPAlliance/tls
 //
 
-#ifndef BOOST_SECURE_STREAM_HPP
-#define BOOST_SECURE_STREAM_HPP
+#ifndef BOOST_TLS_IMPL_STREAM_IPP
+#define BOOST_TLS_IMPL_STREAM_IPP
 
-#include <boost/secure/detail/config.hpp>
+#include <boost/tls/stream.hpp>
 
 namespace boost {
-namespace secure {
+namespace tls {
 
-template< class NextLayer >
-class stream
+int
+forty_two() noexcept
 {
+    return 42;
+}
 
-};
-
-} // secure
+} // tls
 } // boost
 
 #endif

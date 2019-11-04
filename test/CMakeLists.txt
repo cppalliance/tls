@@ -4,14 +4,14 @@
 # Distributed under the Boost Software License, Version 1.0. (See accompanying
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-# Official repository: https://github.com/CPPAlliance/secure
+# Official repository: https://github.com/CPPAlliance/tls
 #
 
-source_group (TREE ${PROJECT_SOURCE_DIR}/include/boost/secure PREFIX secure FILES ${PROJECT_FILES})
+source_group (TREE ${PROJECT_SOURCE_DIR}/include/boost/tls PREFIX tls FILES ${PROJECT_FILES})
 
 GroupSources(test "/")
 
-add_executable (secure-tests
+add_executable (tls-tests
     ${PROJECT_FILES}
     ${PROJECT_SOURCE_DIR}/src/src.cpp
     Jamfile
@@ -19,4 +19,4 @@ add_executable (secure-tests
     stream.cpp
 )
 
-add_test(secure-tests secure-tests)
+add_test(tls-tests tls-tests)

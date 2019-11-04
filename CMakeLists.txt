@@ -36,11 +36,11 @@ endfunction()
 
 #-------------------------------------------------------------------------------
 #
-# JSON
+# TLS
 #
 #-------------------------------------------------------------------------------
 
-project (SECURE VERSION 1)
+project (TLS VERSION 1)
 
 set_property (GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -49,7 +49,7 @@ if (MSVC)
 
     add_definitions (
         -D_WIN32_WINNT=0x0601
-        -D_CRT_SECURE_NO_WARNINGS
+        -D_CRT_TLS_NO_WARNINGS
     )
 
     add_compile_options(
@@ -143,11 +143,11 @@ endif()
 # Tests and examples
 #
 
-add_definitions(-DBOOST_SECURE_HEADER_ONLY=1)
+add_definitions(-DBOOST_TLS_HEADER_ONLY=1)
 
 file (GLOB_RECURSE PROJECT_FILES
-    ${PROJECT_SOURCE_DIR}/include/boost/secure/*.hpp
-    ${PROJECT_SOURCE_DIR}/include/boost/secure/*.ipp
+    ${PROJECT_SOURCE_DIR}/include/boost/tls/*.hpp
+    ${PROJECT_SOURCE_DIR}/include/boost/tls/*.ipp
 )
 
 add_subdirectory (test)
